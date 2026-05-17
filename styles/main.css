@@ -49,16 +49,16 @@ a {
 }
 
 .game-frame {
-  width: min(1380px, 100%);
+  width: min(1520px, 100%);
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
 .play-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   align-items: start;
 }
 
@@ -435,15 +435,17 @@ h3 {
 }
 
 .side-info {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.7fr);
   gap: 16px;
+  align-items: stretch;
 }
 
 .employee-panel,
 .basket-panel {
   position: static;
-  padding: 12px;
+  padding: 14px 16px;
 }
 
 .employee-panel {
@@ -463,6 +465,7 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 0;
 }
 
 .basket-panel {
@@ -470,6 +473,7 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  min-width: 0;
 }
 
 .basket-header,
@@ -597,10 +601,6 @@ h3 {
 }
 
 @media (max-width: 1100px) {
-  .play-layout {
-    grid-template-columns: 1fr;
-  }
-
   .instruction-grid {
     grid-template-columns: 1fr;
   }
@@ -610,7 +610,6 @@ h3 {
   }
 
   .side-info {
-    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -622,10 +621,6 @@ h3 {
 
   .side-info {
     grid-template-columns: 1fr;
-    padding: 0;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
   }
 
   .canvas-wrap {
@@ -663,5 +658,14 @@ h3 {
 
   .guide-list {
     grid-template-columns: 1fr;
+  }
+
+  .recent-catch-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .basket-header,
+  .buff-line {
+    flex-wrap: wrap;
   }
 }
