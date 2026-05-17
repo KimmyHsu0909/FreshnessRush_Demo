@@ -101,20 +101,84 @@
     {
       speaker: "REWE Crew",
       portrait: "clerkIdle",
-      text:
-        "Welcome to Freshness Rush. I am one of the REWE crew, and I will guide you through today's market run.",
+      segments: [
+        {
+          text: "Welcome to Freshness Rush. I am one of the ",
+        },
+        {
+          text: "REWE",
+          className: "dialogue-highlight-rewe",
+        },
+        {
+          text: " crew, and I will guide you through today's market run.",
+        },
+      ],
     },
     {
       speaker: "REWE Crew",
       portrait: "clerkHappy",
-      text:
-        "At REWE, we care about freshness, regional choices, and healthy eating. That is the spirit behind this challenge.",
+      segments: [
+        {
+          text: "At ",
+        },
+        {
+          text: "REWE",
+          className: "dialogue-highlight-rewe",
+        },
+        {
+          text: ", we care about ",
+        },
+        {
+          text: "freshness",
+          className: "dialogue-highlight-brand",
+        },
+        {
+          text: ", ",
+        },
+        {
+          text: "regional choices",
+          className: "dialogue-highlight-brand",
+        },
+        {
+          text: ", and ",
+        },
+        {
+          text: "healthy eating",
+          className: "dialogue-highlight-brand",
+        },
+        {
+          text: ". That is the spirit behind this challenge.",
+        },
+      ],
     },
     {
       speaker: "REWE Crew",
       portrait: "clerkCheer",
-      text:
-        "You have 60 seconds to catch as many fresh and healthy ingredients as you can. The higher your score, the better your chance to unlock a REWE surprise discount coupon.",
+      segments: [
+        {
+          text:
+            "You have 60 seconds to catch as many fresh and healthy ingredients as you can. The higher your score, the better your chance to unlock a ",
+        },
+        {
+          text: "REWE ",
+          className: "dialogue-highlight-coupon",
+        },
+        {
+          text: "surprise ",
+          className: "dialogue-highlight-coupon",
+        },
+        {
+          text: "discount ",
+          className: "dialogue-highlight-coupon",
+        },
+        {
+          text: "coupon",
+          className: "dialogue-highlight-coupon",
+        },
+        {
+          text: ".",
+        },
+      ],
     },
   ];
 
@@ -235,6 +299,45 @@
     playPowerup() {
       this.tone({ frequency: 680, duration: 0.08, type: "triangle", gain: 0.04 });
       this.tone({ frequency: 980, duration: 0.1, type: "triangle", gain: 0.04, delay: 0.08 });
+    }
+
+    playCelebration() {
+      const fanfare = [
+        { frequency: 523.25, delay: 0.0, duration: 0.14, gain: 0.05 },
+        { frequency: 659.25, delay: 0.14, duration: 0.14, gain: 0.05 },
+        { frequency: 783.99, delay: 0.28, duration: 0.16, gain: 0.055 },
+        { frequency: 1046.5, delay: 0.46, duration: 0.22, gain: 0.06 },
+        { frequency: 880.0, delay: 0.86, duration: 0.12, gain: 0.045 },
+        { frequency: 987.77, delay: 1.0, duration: 0.14, gain: 0.05 },
+        { frequency: 1174.66, delay: 1.16, duration: 0.22, gain: 0.055 },
+      ];
+
+      fanfare.forEach((note, index) => {
+        this.tone({
+          frequency: note.frequency,
+          delay: note.delay,
+          duration: note.duration,
+          gain: note.gain,
+          type: index % 2 === 0 ? "square" : "triangle",
+        });
+        this.tone({
+          frequency: note.frequency * 0.5,
+          delay: note.delay,
+          duration: Math.max(0.12, note.duration * 1.3),
+          gain: note.gain * 0.45,
+          type: "sine",
+        });
+      });
+
+      [0.22, 0.74, 1.34].forEach((delay, index) => {
+        this.tone({
+          frequency: index % 2 === 0 ? 1480 : 1318.51,
+          delay,
+          duration: 0.18,
+          gain: 0.04,
+          type: "sawtooth",
+        });
+      });
     }
 
     startMusic(mode = "full") {
@@ -419,6 +522,7 @@
         couponCard: document.getElementById("couponCard"),
         couponTitle: document.getElementById("couponTitle"),
         couponCopy: document.getElementById("couponCopy"),
+        celebrationConfetti: document.getElementById("celebrationConfetti"),
         recentCatchList: document.getElementById("recentCatchList"),
         cameraPreview: document.getElementById("cameraPreview"),
         loadingLabel: document.getElementById("loadingLabel"),
@@ -443,6 +547,7 @@
       this.dialogueTypingTimer = null;
       this.dialogueFullText = "";
       this.dialogueTypedLength = 0;
+      this.confettiClearTimer = null;
 
       this.state = this.createState();
 
@@ -532,6 +637,7 @@
       this.audio.startMusic("dim");
       this.state = this.createState();
       this.clearDialogueTyping();
+      this.clearCelebration();
       this.elements.pauseScreen.classList.add("hidden");
       this.elements.guideScreen.classList.add("hidden");
       this.elements.dialogueScreen.classList.add("hidden");
@@ -581,6 +687,7 @@
       this.state.paused = false;
       this.handTracking.stop();
       this.clearDialogueTyping();
+      this.clearCelebration();
       this.elements.pauseScreen.classList.add("hidden");
       this.elements.guideScreen.classList.add("hidden");
       this.elements.dialogueScreen.classList.add("hidden");
@@ -629,7 +736,7 @@
         "aria-label",
         isLastPage ? "Open collectibles guide" : "Next dialogue page",
       );
-      this.startDialogueTyping(page.text);
+      this.startDialogueTyping(page.segments || [{ text: page.text }]);
     }
 
     advanceDialogue() {
@@ -654,15 +761,19 @@
       this.showToast("Check the collectibles guide before you begin.");
     }
 
-    startDialogueTyping(text) {
+    startDialogueTyping(segments) {
       this.clearDialogueTyping();
-      this.dialogueFullText = text;
+      this.dialogueSegments = segments.map((segment) => ({
+        text: segment.text,
+        className: segment.className || "",
+      }));
+      this.dialogueFullText = this.dialogueSegments.map((segment) => segment.text).join("");
       this.dialogueTypedLength = 0;
       this.elements.dialogueText.classList.add("typing");
 
       const step = () => {
         this.dialogueTypedLength += 1;
-        this.elements.dialogueText.textContent = this.dialogueFullText.slice(0, this.dialogueTypedLength);
+        this.renderDialogueText(this.dialogueTypedLength);
 
         if (this.dialogueTypedLength >= this.dialogueFullText.length) {
           this.clearDialogueTyping();
@@ -681,7 +792,7 @@
 
     finishDialogueTyping() {
       this.clearDialogueTyping();
-      this.elements.dialogueText.textContent = this.dialogueFullText || "";
+      this.renderDialogueText(this.dialogueFullText.length);
       this.elements.dialogueText.classList.remove("typing");
     }
 
@@ -690,6 +801,67 @@
         window.clearTimeout(this.dialogueTypingTimer);
         this.dialogueTypingTimer = null;
       }
+    }
+
+    launchCelebration() {
+      const container = this.elements.celebrationConfetti;
+      if (!container) {
+        return;
+      }
+
+      this.clearCelebration();
+      container.classList.remove("hidden");
+
+      const palette = ["#cf1f2d", "#ffd34f", "#62c370", "#58b8ff", "#ff8da1", "#ffffff"];
+      for (let index = 0; index < 42; index += 1) {
+        const piece = document.createElement("span");
+        const isRibbon = index % 4 === 0;
+        piece.className = `celebration-confetti-piece${isRibbon ? " is-ribbon" : ""}`;
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.background = palette[index % palette.length];
+        piece.style.animationDuration = `${2.8 + Math.random() * 1.9}s`;
+        piece.style.animationDelay = `${Math.random() * 0.45}s`;
+        piece.style.setProperty("--drift-x", `${-110 + Math.random() * 220}px`);
+        piece.style.setProperty("--spin", `${240 + Math.random() * 660}deg`);
+        container.appendChild(piece);
+      }
+
+      this.confettiClearTimer = window.setTimeout(() => this.clearCelebration(), 5200);
+    }
+
+    clearCelebration() {
+      if (this.confettiClearTimer) {
+        window.clearTimeout(this.confettiClearTimer);
+        this.confettiClearTimer = null;
+      }
+
+      const container = this.elements && this.elements.celebrationConfetti;
+      if (!container) {
+        return;
+      }
+
+      container.innerHTML = "";
+      container.classList.add("hidden");
+    }
+
+    renderDialogueText(visibleLength) {
+      this.elements.dialogueText.innerHTML = "";
+
+      let remaining = visibleLength;
+      this.dialogueSegments.forEach((segment) => {
+        if (remaining <= 0) {
+          return;
+        }
+
+        const chunk = segment.text.slice(0, remaining);
+        const span = document.createElement("span");
+        if (segment.className) {
+          span.className = segment.className;
+        }
+        span.textContent = chunk;
+        this.elements.dialogueText.appendChild(span);
+        remaining -= chunk.length;
+      });
     }
 
     setCameraStatus(text) {
@@ -885,9 +1057,11 @@
       this.elements.guideScreen.classList.add("hidden");
       this.elements.dialogueScreen.classList.add("hidden");
       this.clearDialogueTyping();
+      this.clearCelebration();
       this.setCameraStatus("Round Complete");
       this.audio.setMusicMode("dim");
       this.audio.playGameOver();
+      this.audio.playCelebration();
 
       const rank = this.getRank();
       const coupon = this.getCoupon();
@@ -905,6 +1079,7 @@
       }
 
       this.elements.endScreen.classList.remove("hidden");
+      this.launchCelebration();
       this.showToast(
         reason === "lives"
           ? "The cart ran out of lives."
