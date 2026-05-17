@@ -1,10 +1,10 @@
 # Freshness Rush
 
-REWE branded HTML5 mini-game demo based on the planning document in [游戏策划文档.md](/Users/cretid/Desktop/Game_demo/游戏策划文档.md).
+REWE branded HTML5 mini-game demo based on the planning document in [Game Design Document](/Users/cretid/Desktop/FreshnessRush_Demo/Game_Design_Document_EN.md).
 
 ## Run the Game
 
-Please open the link: https://kimmyhsu0909.github.io/FreshnessRush_Demo/.
+Please open the link: [Freshness Rush](https://kimmyhsu0909.github.io/FreshnessRush_Demo/).
 
 ## Project structure
 
