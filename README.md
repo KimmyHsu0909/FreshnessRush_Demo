@@ -4,13 +4,7 @@ REWE branded HTML5 mini-game demo based on the planning document in [游戏策�
 
 ## Run locally
 
-Camera mode needs `https` or `localhost`.
-
-```bash
-python3 -m http.server 4173
-```
-
-Then open `http://127.0.0.1:4173/`.
+Please open the link: https://kimmyhsu0909.github.io/FreshnessRush_Demo/.
 
 ## Project structure
 
