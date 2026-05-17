@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" shape-rendering="crispEdges">
+  <!-- Bread body - top crust -->
+  <rect x="14" y="10" width="4" height="4" fill="#a07040"/>
+  <rect x="18" y="10" width="4" height="4" fill="#b08048"/>
+  <rect x="22" y="10" width="4" height="4" fill="#b08048"/>
+  <rect x="26" y="10" width="4" height="4" fill="#a07040"/>
+  <rect x="30" y="10" width="4" height="4" fill="#906030"/>
+  <!-- Row 2 -->
+  <rect x="10" y="14" width="4" height="4" fill="#a07040"/>
+  <rect x="14" y="14" width="4" height="4" fill="#c09058"/>
+  <rect x="18" y="14" width="4" height="4" fill="#d0a068"/>
+  <rect x="22" y="14" width="4" height="4" fill="#d0a068"/>
+  <rect x="26" y="14" width="4" height="4" fill="#c09058"/>
+  <rect x="30" y="14" width="4" height="4" fill="#b08048"/>
+  <rect x="34" y="14" width="4" height="4" fill="#906030"/>
+  <!-- Row 3 - inner bread -->
+  <rect x="10" y="18" width="4" height="4" fill="#906030"/>
+  <rect x="14" y="18" width="4" height="4" fill="#b08048"/>
+  <rect x="18" y="18" width="4" height="4" fill="#c09058"/>
+  <rect x="22" y="18" width="4" height="4" fill="#c09058"/>
+  <rect x="26" y="18" width="4" height="4" fill="#b08048"/>
+  <rect x="30" y="18" width="4" height="4" fill="#a07040"/>
+  <rect x="34" y="18" width="4" height="4" fill="#805828"/>
+  <!-- Row 4 -->
+  <rect x="10" y="22" width="4" height="4" fill="#805828"/>
+  <rect x="14" y="22" width="4" height="4" fill="#a07040"/>
+  <rect x="18" y="22" width="4" height="4" fill="#b08048"/>
+  <rect x="22" y="22" width="4" height="4" fill="#b08048"/>
+  <rect x="26" y="22" width="4" height="4" fill="#a07040"/>
+  <rect x="30" y="22" width="4" height="4" fill="#906030"/>
+  <rect x="34" y="22" width="4" height="4" fill="#805828"/>
+  <!-- Row 5 -->
+  <rect x="10" y="26" width="4" height="4" fill="#805828"/>
+  <rect x="14" y="26" width="4" height="4" fill="#906030"/>
+  <rect x="18" y="26" width="4" height="4" fill="#a07040"/>
+  <rect x="22" y="26" width="4" height="4" fill="#a07040"/>
+  <rect x="26" y="26" width="4" height="4" fill="#906030"/>
+  <rect x="30" y="26" width="4" height="4" fill="#805828"/>
+  <rect x="34" y="26" width="4" height="4" fill="#704820"/>
+  <!-- Bottom crust -->
+  <rect x="12" y="30" width="4" height="4" fill="#704820"/>
+  <rect x="16" y="30" width="4" height="4" fill="#805828"/>
+  <rect x="20" y="30" width="4" height="4" fill="#906030"/>
+  <rect x="24" y="30" width="4" height="4" fill="#805828"/>
+  <rect x="28" y="30" width="4" height="4" fill="#704820"/>
+  <rect x="32" y="30" width="4" height="4" fill="#604018"/>
+  <!-- Mold spots (blue-green) -->
+  <rect x="16" y="16" width="4" height="4" fill="#4a8868"/>
+  <rect x="18" y="18" width="2" height="2" fill="#5aa878"/>
+  <rect x="28" y="20" width="4" height="4" fill="#4a8868"/>
+  <rect x="30" y="22" width="2" height="2" fill="#5aa878"/>
+  <rect x="14" y="24" width="4" height="4" fill="#3a7858"/>
+  <rect x="22" y="26" width="4" height="4" fill="#4a8868"/>
+  <rect x="24" y="28" width="2" height="2" fill="#5aa878"/>
+  <rect x="32" y="26" width="2" height="2" fill="#3a7858"/>
+  <!-- Mold fuzzy edges -->
+  <rect x="14" y="16" width="2" height="2" fill="#3a7858" opacity="0.5"/>
+  <rect x="20" y="20" width="2" height="2" fill="#3a7858" opacity="0.5"/>
+  <rect x="26" y="24" width="2" height="2" fill="#3a7858" opacity="0.5"/>
+</svg>

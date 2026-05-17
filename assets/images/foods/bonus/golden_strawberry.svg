@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" shape-rendering="crispEdges">
+  <!-- Stem/calyx -->
+  <rect x="22" y="2" width="4" height="4" fill="#4a7a2e"/>
+  <rect x="18" y="4" width="4" height="4" fill="#5d9e3a"/>
+  <rect x="26" y="4" width="4" height="4" fill="#5d9e3a"/>
+  <rect x="16" y="6" width="4" height="4" fill="#4a7a2e"/>
+  <rect x="28" y="6" width="4" height="4" fill="#4a7a2e"/>
+  <!-- Top row -->
+  <rect x="16" y="10" width="4" height="4" fill="#d8b030"/>
+  <rect x="20" y="10" width="4" height="4" fill="#e8c840"/>
+  <rect x="24" y="10" width="4" height="4" fill="#e8c840"/>
+  <rect x="28" y="10" width="4" height="4" fill="#d8b030"/>
+  <!-- Row 2 -->
+  <rect x="12" y="14" width="4" height="4" fill="#c8a020"/>
+  <rect x="16" y="14" width="4" height="4" fill="#e8c840"/>
+  <rect x="20" y="14" width="4" height="4" fill="#f8e860"/>
+  <rect x="24" y="14" width="4" height="4" fill="#f0d850"/>
+  <rect x="28" y="14" width="4" height="4" fill="#e8c840"/>
+  <rect x="32" y="14" width="4" height="4" fill="#c8a020"/>
+  <!-- Row 3 -->
+  <rect x="10" y="18" width="4" height="4" fill="#b89018"/>
+  <rect x="14" y="18" width="4" height="4" fill="#d8b030"/>
+  <rect x="18" y="18" width="4" height="4" fill="#f0d850"/>
+  <rect x="22" y="18" width="4" height="4" fill="#f8e860"/>
+  <rect x="26" y="18" width="4" height="4" fill="#f0d850"/>
+  <rect x="30" y="18" width="4" height="4" fill="#d8b030"/>
+  <rect x="34" y="18" width="4" height="4" fill="#b89018"/>
+  <!-- Row 4 -->
+  <rect x="10" y="22" width="4" height="4" fill="#a08010"/>
+  <rect x="14" y="22" width="4" height="4" fill="#c8a020"/>
+  <rect x="18" y="22" width="4" height="4" fill="#e8c840"/>
+  <rect x="22" y="22" width="4" height="4" fill="#f0d850"/>
+  <rect x="26" y="22" width="4" height="4" fill="#e8c840"/>
+  <rect x="30" y="22" width="4" height="4" fill="#c8a020"/>
+  <rect x="34" y="22" width="4" height="4" fill="#a08010"/>
+  <!-- Row 5 -->
+  <rect x="10" y="26" width="4" height="4" fill="#907010"/>
+  <rect x="14" y="26" width="4" height="4" fill="#b89018"/>
+  <rect x="18" y="26" width="4" height="4" fill="#d8b030"/>
+  <rect x="22" y="26" width="4" height="4" fill="#e8c840"/>
+  <rect x="26" y="26" width="4" height="4" fill="#d8b030"/>
+  <rect x="30" y="26" width="4" height="4" fill="#b89018"/>
+  <rect x="34" y="26" width="4" height="4" fill="#907010"/>
+  <!-- Row 6 -->
+  <rect x="12" y="30" width="4" height="4" fill="#a08010"/>
+  <rect x="16" y="30" width="4" height="4" fill="#c8a020"/>
+  <rect x="20" y="30" width="4" height="4" fill="#d8b030"/>
+  <rect x="24" y="30" width="4" height="4" fill="#d8b030"/>
+  <rect x="28" y="30" width="4" height="4" fill="#c8a020"/>
+  <rect x="32" y="30" width="4" height="4" fill="#a08010"/>
+  <!-- Bottom -->
+  <rect x="14" y="34" width="4" height="4" fill="#907010"/>
+  <rect x="18" y="34" width="4" height="4" fill="#b89018"/>
+  <rect x="22" y="34" width="4" height="4" fill="#c8a020"/>
+  <rect x="26" y="34" width="4" height="4" fill="#b89018"/>
+  <rect x="30" y="34" width="4" height="4" fill="#907010"/>
+  <rect x="18" y="38" width="4" height="4" fill="#907010"/>
+  <rect x="22" y="38" width="4" height="4" fill="#a08010"/>
+  <rect x="26" y="38" width="4" height="4" fill="#907010"/>
+  <!-- Seeds (golden) -->
+  <rect x="16" y="16" width="2" height="2" fill="#fffff0"/>
+  <rect x="24" y="14" width="2" height="2" fill="#fffff0"/>
+  <rect x="12" y="22" width="2" height="2" fill="#fffff0"/>
+  <rect x="20" y="22" width="2" height="2" fill="#fffff0"/>
+  <rect x="28" y="22" width="2" height="2" fill="#fffff0"/>
+  <rect x="16" y="28" width="2" height="2" fill="#fffff0"/>
+  <rect x="24" y="28" width="2" height="2" fill="#fffff0"/>
+  <!-- Sparkle stars -->
+  <rect x="6" y="8" width="2" height="2" fill="#fff8c0"/>
+  <rect x="4" y="10" width="2" height="2" fill="#fff8c0"/>
+  <rect x="38" y="10" width="2" height="2" fill="#fff8c0"/>
+  <rect x="40" y="8" width="2" height="2" fill="#fff8c0"/>
+  <rect x="6" y="36" width="2" height="2" fill="#fff8c0"/>
+  <rect x="38" y="34" width="2" height="2" fill="#fff8c0"/>
+  <rect x="40" y="36" width="2" height="2" fill="#fff8c0"/>
+</svg>

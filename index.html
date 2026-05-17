@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Freshness Rush | REWE Demo Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <main class="game-page">
+        <section class="game-frame">
+          <div class="play-layout">
+            <div class="canvas-wrap">
+              <canvas
+                id="gameCanvas"
+                width="1280"
+                height="720"
+                aria-label="Freshness Rush game canvas"
+              ></canvas>
+
+              <div class="hud hud-floating">
+                <div class="hud-block hud-transparent">
+                  <span class="hud-label">Score</span>
+                  <strong id="scoreValue">0</strong>
+                </div>
+                <div class="hud-block hud-transparent hud-timer">
+                  <span class="hud-label">Time</span>
+                  <strong id="timerValue">60</strong>
+                </div>
+                <div class="hud-block hud-transparent">
+                  <span class="hud-label">Lives</span>
+                  <strong id="livesValue">3 / 3</strong>
+                </div>
+              </div>
+
+              <div class="top-right-actions">
+                <div class="top-right-row">
+                  <aside class="camera-panel">
+                    <video
+                      id="cameraPreview"
+                      class="camera-preview"
+                      playsinline
+                      muted
+                      aria-label="Camera preview for hand tracking"
+                    ></video>
+                  </aside>
+
+                  <button
+                    id="settingsButton"
+                    class="settings-button"
+                    type="button"
+                    aria-label="Open settings"
+                  >
+                    <span class="pause-icon" aria-hidden="true">
+                      <i></i>
+                      <i></i>
+                    </span>
+                  </button>
+                </div>
+
+                <div id="cameraStatus" class="status-pill status-floating">Camera Off</div>
+              </div>
+
+              <div id="rushBanner" class="rush-banner" aria-hidden="true">
+                Regional Market Open!
+              </div>
+
+              <div id="toastMessage" class="toast-message" aria-live="polite"></div>
+
+              <div id="pauseScreen" class="overlay-screen hidden">
+                <div class="panel settings-card">
+                  <h2>Game Paused</h2>
+                  <p class="lead-copy">Adjust sound or end the current run.</p>
+
+                  <div class="button-row settings-actions">
+                    <button id="pauseMusicButton" class="pixel-button" type="button">
+                      Music On
+                    </button>
+                    <button id="resumeButton" class="pixel-button button-alt" type="button">
+                      Resume
+                    </button>
+                    <button id="backToStartButton" class="pixel-button button-alt" type="button">
+                      Back To Start
+                    </button>
+                    <button id="endGameButton" class="pixel-button button-danger" type="button">
+                      End Game
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div id="guideScreen" class="overlay-screen hidden">
+                <div class="panel card-large guide-card">
+                  <h2>Collectibles Guide</h2>
+                  <p class="lead-copy">
+                    Learn what to catch before the market run begins.
+                  </p>
+
+                  <div class="guide-groups">
+                    <section class="guide-group">
+                      <h3>Good</h3>
+                      <div id="goodGuideList" class="guide-list"></div>
+                    </section>
+                    <section class="guide-group">
+                      <h3>Bad</h3>
+                      <div id="badGuideList" class="guide-list"></div>
+                    </section>
+                    <section class="guide-group">
+                      <h3>Bonus</h3>
+                      <div id="bonusGuideList" class="guide-list"></div>
+                    </section>
+                  </div>
+
+                  <div class="button-row">
+                    <button id="guideContinueButton" class="pixel-button" type="button">
+                      Start Run
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div id="startScreen" class="overlay-screen">
+                <div class="panel card-large">
+                  <img
+                    class="brand-mark"
+                    src="assets/images/ui/rewe_badge.svg"
+                    alt="REWE badge"
+                  />
+                  <h1>Freshness Rush</h1>
+                  <p class="lead-copy">
+                    Catch fresh local food, dodge spoiled products, and sprint through the
+                    Regional Market finale.
+                  </p>
+
+                  <div class="instruction-grid">
+                    <div class="mini-card">
+                      <h2>How to Play</h2>
+                      <p>Move the REWE cart left and right. Catch fresh food for points.</p>
+                    </div>
+                    <div class="mini-card">
+                      <h2>Bad Food</h2>
+                      <p>Spoiled items cost one life and slow the cart for 2.5 seconds.</p>
+                    </div>
+                    <div class="mini-card">
+                      <h2>Final Rush</h2>
+                      <p>At 50 seconds, golden fruit takes over the screen for a score rush.</p>
+                    </div>
+                  </div>
+
+                  <div class="camera-note">
+                    Camera mode uses local hand tracking only. Video stays on your device, is
+                    not uploaded, and is not stored. If camera access is denied, the game falls
+                    back to mouse control.
+                  </div>
+
+                  <div class="button-row">
+                    <button
+                      id="cameraStartButton"
+                      class="pixel-button"
+                      type="button"
+                      disabled
+                    >
+                      Start With Camera
+                    </button>
+                    <button
+                      id="mouseStartButton"
+                      class="pixel-button button-alt"
+                      type="button"
+                      disabled
+                    >
+                      Start With Mouse
+                    </button>
+                  </div>
+
+                  <p id="loadingLabel" class="loading-label">Loading local assets...</p>
+                </div>
+              </div>
+
+              <div id="endScreen" class="overlay-screen hidden">
+                <div class="panel card-large">
+                  <h2>Market Run Complete</h2>
+                  <p class="final-score">Final Score: <strong id="finalScoreValue">0</strong></p>
+                  <p class="rank-line">Rank: <strong id="rankValue">C</strong></p>
+                  <p id="rankCopy" class="lead-copy">Fresh Rookie</p>
+
+                  <div id="couponCard" class="coupon-card hidden">
+                    <span class="coupon-kicker">Demo Reward</span>
+                    <strong id="couponTitle">No coupon unlocked</strong>
+                    <p id="couponCopy">Reach 300 points to unlock a reward preview.</p>
+                  </div>
+
+                  <div class="button-row">
+                    <button id="replayButton" class="pixel-button" type="button">
+                      Play Again
+                    </button>
+                    <button id="shareButton" class="pixel-button button-alt" type="button">
+                      Share Score
+                    </button>
+                    <a
+                      class="pixel-button button-link"
+                      href="https://www.rewe.de/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Open REWE
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="side-info">
+              <aside class="employee-panel">
+                <img
+                  id="employeePortrait"
+                  src="assets/images/characters/idle.png"
+                  alt="REWE employee mood"
+                />
+                <div class="employee-copy">
+                  <span class="hud-label">Crew Mood</span>
+                  <strong id="employeeMoodLabel">Idle</strong>
+                </div>
+              </aside>
+              <aside class="basket-panel">
+                <div class="basket-header">
+                  <span class="hud-label">Basket</span>
+                  <strong id="modeValue">Mouse</strong>
+                </div>
+                <div id="recentCatchList" class="recent-catch-list"></div>
+                <div class="buff-line">
+                  <span id="shieldValue">Shield 0</span>
+                  <span id="cartBuffValue">Cart Normal</span>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="scripts/hand-tracking.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" shape-rendering="crispEdges">
+  <!-- Stem -->
+  <rect x="22" y="6" width="4" height="4" fill="#4a6e34"/>
+  <!-- Leaf 1 (top left) -->
+  <rect x="10" y="10" width="4" height="4" fill="#4a9e32"/>
+  <rect x="14" y="10" width="4" height="4" fill="#5bb83e"/>
+  <rect x="18" y="10" width="4" height="4" fill="#6dc848"/>
+  <rect x="8" y="14" width="4" height="4" fill="#3d8c28"/>
+  <rect x="12" y="14" width="4" height="4" fill="#5bb83e"/>
+  <rect x="16" y="14" width="4" height="4" fill="#6dc848"/>
+  <rect x="20" y="14" width="4" height="4" fill="#5bb83e"/>
+  <rect x="10" y="18" width="4" height="4" fill="#3d8c28"/>
+  <rect x="14" y="18" width="4" height="4" fill="#4a9e32"/>
+  <rect x="18" y="18" width="4" height="4" fill="#5bb83e"/>
+  <!-- Leaf 2 (top right) -->
+  <rect x="26" y="10" width="4" height="4" fill="#5bb83e"/>
+  <rect x="30" y="10" width="4" height="4" fill="#4a9e32"/>
+  <rect x="34" y="10" width="4" height="4" fill="#3d8c28"/>
+  <rect x="24" y="14" width="4" height="4" fill="#5bb83e"/>
+  <rect x="28" y="14" width="4" height="4" fill="#6dc848"/>
+  <rect x="32" y="14" width="4" height="4" fill="#4a9e32"/>
+  <rect x="36" y="14" width="4" height="4" fill="#3d8c28"/>
+  <rect x="26" y="18" width="4" height="4" fill="#4a9e32"/>
+  <rect x="30" y="18" width="4" height="4" fill="#5bb83e"/>
+  <rect x="34" y="18" width="4" height="4" fill="#3d8c28"/>
+  <!-- Leaf 3 (middle left) -->
+  <rect x="6" y="22" width="4" height="4" fill="#3d8c28"/>
+  <rect x="10" y="22" width="4" height="4" fill="#5bb83e"/>
+  <rect x="14" y="22" width="4" height="4" fill="#6dc848"/>
+  <rect x="18" y="22" width="4" height="4" fill="#5bb83e"/>
+  <rect x="8" y="26" width="4" height="4" fill="#2e7a20"/>
+  <rect x="12" y="26" width="4" height="4" fill="#4a9e32"/>
+  <rect x="16" y="26" width="4" height="4" fill="#5bb83e"/>
+  <!-- Leaf 4 (middle right) -->
+  <rect x="26" y="22" width="4" height="4" fill="#5bb83e"/>
+  <rect x="30" y="22" width="4" height="4" fill="#6dc848"/>
+  <rect x="34" y="22" width="4" height="4" fill="#4a9e32"/>
+  <rect x="38" y="22" width="4" height="4" fill="#3d8c28"/>
+  <rect x="28" y="26" width="4" height="4" fill="#4a9e32"/>
+  <rect x="32" y="26" width="4" height="4" fill="#5bb83e"/>
+  <rect x="36" y="26" width="4" height="4" fill="#2e7a20"/>
+  <!-- Leaf 5 (bottom) -->
+  <rect x="14" y="30" width="4" height="4" fill="#3d8c28"/>
+  <rect x="18" y="30" width="4" height="4" fill="#5bb83e"/>
+  <rect x="22" y="30" width="4" height="4" fill="#6dc848"/>
+  <rect x="26" y="30" width="4" height="4" fill="#5bb83e"/>
+  <rect x="30" y="30" width="4" height="4" fill="#3d8c28"/>
+  <rect x="16" y="34" width="4" height="4" fill="#2e7a20"/>
+  <rect x="20" y="34" width="4" height="4" fill="#4a9e32"/>
+  <rect x="24" y="34" width="4" height="4" fill="#5bb83e"/>
+  <rect x="28" y="34" width="4" height="4" fill="#2e7a20"/>
+  <rect x="20" y="38" width="4" height="4" fill="#2e7a20"/>
+  <rect x="24" y="38" width="4" height="4" fill="#3d8c28"/>
+  <!-- Highlights -->
+  <rect x="14" y="10" width="2" height="2" fill="#88e060"/>
+  <rect x="28" y="14" width="2" height="2" fill="#88e060"/>
+  <rect x="22" y="30" width="2" height="2" fill="#88e060"/>
+  <!-- Vein lines -->
+  <rect x="14" y="12" width="6" height="1" fill="#3d8c28" opacity="0.5"/>
+  <rect x="28" y="12" width="6" height="1" fill="#3d8c28" opacity="0.5"/>
+  <rect x="18" y="32" width="8" height="1" fill="#2e7a20" opacity="0.5"/>
+</svg>
