@@ -97,6 +97,27 @@
     },
   ];
 
+  const PRE_GAME_DIALOGUES = [
+    {
+      speaker: "REWE Crew",
+      portrait: "clerkIdle",
+      text:
+        "Welcome to Freshness Rush. I am one of the REWE crew, and I will guide you through today's market run.",
+    },
+    {
+      speaker: "REWE Crew",
+      portrait: "clerkHappy",
+      text:
+        "At REWE, we care about freshness, regional choices, and healthy eating. That is the spirit behind this challenge.",
+    },
+    {
+      speaker: "REWE Crew",
+      portrait: "clerkCheer",
+      text:
+        "You have 60 seconds to catch as many fresh and healthy ingredients as you can. The higher your score, the better your chance to unlock a REWE surprise discount coupon.",
+    },
+  ];
+
   const DIFFICULTY_STAGES = [
     { until: 10, spawnRate: 1.0, minSpeed: 220, maxSpeed: 240, badChance: 0.08 },
     { until: 20, spawnRate: 1.2, minSpeed: 250, maxSpeed: 270, badChance: 0.12 },
@@ -384,6 +405,12 @@
         badGuideList: document.getElementById("badGuideList"),
         bonusGuideList: document.getElementById("bonusGuideList"),
         guideContinueButton: document.getElementById("guideContinueButton"),
+        dialogueScreen: document.getElementById("dialogueScreen"),
+        dialoguePortrait: document.getElementById("dialoguePortrait"),
+        dialogueSpeaker: document.getElementById("dialogueSpeaker"),
+        dialogueText: document.getElementById("dialogueText"),
+        dialogueNextButton: document.getElementById("dialogueNextButton"),
+        dialogueNextLabel: document.getElementById("dialogueNextLabel"),
         startScreen: document.getElementById("startScreen"),
         endScreen: document.getElementById("endScreen"),
         finalScore: document.getElementById("finalScoreValue"),
@@ -412,6 +439,10 @@
       this.pendingMode = "mouse";
       this.mouseNormalizedX = 0.5;
       this.cameraNormalizedX = 0.5;
+      this.dialoguePage = 0;
+      this.dialogueTypingTimer = null;
+      this.dialogueFullText = "";
+      this.dialogueTypedLength = 0;
 
       this.state = this.createState();
 
@@ -460,6 +491,7 @@
       this.elements.backToStartButton.addEventListener("click", () => this.backToStart());
       this.elements.endGameButton.addEventListener("click", () => this.finishRound("manual"));
       this.elements.guideContinueButton.addEventListener("click", () => this.beginGameplay());
+      this.elements.dialogueNextButton.addEventListener("click", () => this.advanceDialogue());
 
       window.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
@@ -499,8 +531,10 @@
       this.stopRound(false);
       this.audio.startMusic("dim");
       this.state = this.createState();
+      this.clearDialogueTyping();
       this.elements.pauseScreen.classList.add("hidden");
       this.elements.guideScreen.classList.add("hidden");
+      this.elements.dialogueScreen.classList.add("hidden");
       this.elements.endScreen.classList.add("hidden");
       this.elements.startScreen.classList.add("hidden");
 
@@ -539,16 +573,17 @@
       this.updateHud();
       this.updateEmployee("idle");
       this.elements.pauseMusicButton.textContent = this.audio.enabled ? "Music On" : "Music Off";
-      this.elements.guideScreen.classList.remove("hidden");
-      this.showToast("Check the collectibles guide before you begin.");
+      this.showDialogue();
     }
 
     stopRound(showStartScreen) {
       this.state.playing = false;
       this.state.paused = false;
       this.handTracking.stop();
+      this.clearDialogueTyping();
       this.elements.pauseScreen.classList.add("hidden");
       this.elements.guideScreen.classList.add("hidden");
+      this.elements.dialogueScreen.classList.add("hidden");
       this.audio.setMusicMode(showStartScreen ? "dim" : "off");
 
       if (showStartScreen) {
@@ -567,6 +602,94 @@
           ? "Camera mode ready. Move your hand left and right."
           : "Mouse mode ready. Move across the game window.",
       );
+    }
+
+    showDialogue() {
+      this.dialoguePage = 0;
+      this.renderDialoguePage();
+      this.elements.dialogueScreen.classList.remove("hidden");
+      this.showToast("Talk to the REWE crew before the run begins.");
+    }
+
+    renderDialoguePage() {
+      const page = PRE_GAME_DIALOGUES[this.dialoguePage];
+      if (!page) {
+        return;
+      }
+
+      const portrait = this.assets[page.portrait];
+      const isLastPage = this.dialoguePage === PRE_GAME_DIALOGUES.length - 1;
+      this.elements.dialogueSpeaker.textContent = page.speaker;
+      this.elements.dialogueText.textContent = "";
+      this.elements.dialoguePortrait.src = portrait ? portrait.src : ASSET_PATHS[page.portrait];
+      this.elements.dialoguePortrait.alt = `${page.speaker} portrait`;
+      this.elements.dialogueNextButton.classList.toggle("dialogue-start", isLastPage);
+      this.elements.dialogueNextLabel.textContent = isLastPage ? "START" : "\u25B6";
+      this.elements.dialogueNextButton.setAttribute(
+        "aria-label",
+        isLastPage ? "Open collectibles guide" : "Next dialogue page",
+      );
+      this.startDialogueTyping(page.text);
+    }
+
+    advanceDialogue() {
+      if (this.elements.dialogueScreen.classList.contains("hidden")) {
+        return;
+      }
+
+      if (this.dialogueTypingTimer) {
+        this.finishDialogueTyping();
+        return;
+      }
+
+      if (this.dialoguePage < PRE_GAME_DIALOGUES.length - 1) {
+        this.dialoguePage += 1;
+        this.renderDialoguePage();
+        return;
+      }
+
+      this.elements.dialogueScreen.classList.add("hidden");
+      this.clearDialogueTyping();
+      this.elements.guideScreen.classList.remove("hidden");
+      this.showToast("Check the collectibles guide before you begin.");
+    }
+
+    startDialogueTyping(text) {
+      this.clearDialogueTyping();
+      this.dialogueFullText = text;
+      this.dialogueTypedLength = 0;
+      this.elements.dialogueText.classList.add("typing");
+
+      const step = () => {
+        this.dialogueTypedLength += 1;
+        this.elements.dialogueText.textContent = this.dialogueFullText.slice(0, this.dialogueTypedLength);
+
+        if (this.dialogueTypedLength >= this.dialogueFullText.length) {
+          this.clearDialogueTyping();
+          this.elements.dialogueText.classList.remove("typing");
+          return;
+        }
+
+        const nextDelay = this.dialogueFullText[this.dialogueTypedLength - 1].match(/[,.!?]/)
+          ? 60
+          : 24;
+        this.dialogueTypingTimer = window.setTimeout(step, nextDelay);
+      };
+
+      this.dialogueTypingTimer = window.setTimeout(step, 120);
+    }
+
+    finishDialogueTyping() {
+      this.clearDialogueTyping();
+      this.elements.dialogueText.textContent = this.dialogueFullText || "";
+      this.elements.dialogueText.classList.remove("typing");
+    }
+
+    clearDialogueTyping() {
+      if (this.dialogueTypingTimer) {
+        window.clearTimeout(this.dialogueTypingTimer);
+        this.dialogueTypingTimer = null;
+      }
     }
 
     setCameraStatus(text) {
@@ -760,6 +883,8 @@
       this.handTracking.stop();
       this.elements.pauseScreen.classList.add("hidden");
       this.elements.guideScreen.classList.add("hidden");
+      this.elements.dialogueScreen.classList.add("hidden");
+      this.clearDialogueTyping();
       this.setCameraStatus("Round Complete");
       this.audio.setMusicMode("dim");
       this.audio.playGameOver();
