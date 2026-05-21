@@ -35,6 +35,7 @@
     { id: "goldenStrawberry", label: "Golden Strawberry", points: 24, asset: "bonusStrawberry" },
     { id: "goldenApple", label: "Golden Apple", points: 24, asset: "bonusApple" },
   ];
+  const BONUS_FOOD_IDS = new Set(BONUS_FOODS.map((item) => item.id));
 
   const POWERUPS = [
     {
@@ -967,6 +968,8 @@
       return {
         ...definition,
         kind,
+        visualKind:
+          kind === "good" && BONUS_FOOD_IDS.has(definition.id) ? "bonus" : kind,
         x,
         y: -64,
         width: definition.width || 48,
@@ -1279,6 +1282,7 @@
 
     drawPlayfield() {
       for (const item of this.state.items) {
+        this.drawItemAura(item);
         const image = this.assets[item.asset];
         if (image) {
           this.ctx.drawImage(
@@ -1293,6 +1297,31 @@
 
       this.drawRushTint();
       this.drawCart();
+    }
+
+    drawItemAura(item) {
+      const palette = {
+        good: "rgba(122, 214, 142, 0.55)",
+        bad: "rgba(232, 122, 122, 0.52)",
+        bonus: "rgba(255, 214, 102, 0.58)",
+      };
+      const glow = palette[item.visualKind];
+      if (!glow) {
+        return;
+      }
+
+      const x = Math.round(item.x - item.width * 0.5) - 4;
+      const y = Math.round(item.y) - 4;
+      const width = item.width + 8;
+      const height = item.height + 8;
+
+      this.ctx.save();
+      this.ctx.strokeStyle = glow;
+      this.ctx.lineWidth = 3;
+      this.ctx.shadowColor = glow;
+      this.ctx.shadowBlur = item.visualKind === "bonus" ? 16 : 12;
+      this.ctx.strokeRect(x, y, width, height);
+      this.ctx.restore();
     }
 
     drawRushTint() {
